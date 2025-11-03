@@ -23,7 +23,7 @@ import torch.nn.functional as F
 from dataclasses import dataclass
 from ml_lib.misc import all_equal
 
-from torch_scatter import segment_csr as segment
+from torch_scatter import scatter as segment
 
 from .internals import BatchError
 from .indicator import BatchIndicator, BatchIndicatorBase, BatchIndicatorProduct
