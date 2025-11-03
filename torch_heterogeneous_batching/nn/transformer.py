@@ -31,7 +31,7 @@ class SelfAttention(nn.Module):
 
     def __init__(self, input_dim, value_dim=None, key_dim=None, n_heads=1, 
                  use_out_proj=True, 
-                 use_flash = True):
+                 use_flash = False):
         """
         Computes self-attention on batched 
 
