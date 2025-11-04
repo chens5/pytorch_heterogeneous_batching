@@ -377,10 +377,11 @@ class Batch:
     #torch_scatter.scatter(src: Tensor, index: Tensor, dim: int = -1, out: Tensor | None = None, dim_size: int | None = None, reduce: str = 'sum') → Tensor
     def segment(self, reduce: str="sum") -> Tensor:
         data = self.data
+        num_seg = self.ptr.numel() - 1
         if not torch.is_complex(self.data) or torch.is_floating_point(data):
             data = data.to(torch.float)
         
-        return segment(data, index=self.batch, reduce=reduce, dim=0)
+        return segment(data, batch, dim=0, dim_size=num_seg, reduce=reduce)
         #return segment(data, indptr=self.ptr, reduce=reduce)
 
     # aliases
