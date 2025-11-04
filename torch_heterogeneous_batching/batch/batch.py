@@ -374,11 +374,14 @@ class Batch:
         transpose_indices = self.indicator.get_transpose_indices()
         return Batch(self.data[transpose_indices], self.order, self.indicator)
 
+    #torch_scatter.scatter(src: Tensor, index: Tensor, dim: int = -1, out: Tensor | None = None, dim_size: int | None = None, reduce: str = 'sum') → Tensor
     def segment(self, reduce: str="sum") -> Tensor:
         data = self.data
         if not torch.is_complex(self.data) or torch.is_floating_point(data):
             data = data.to(torch.float)
-        return segment(data, indptr=self.ptr, reduce=reduce)
+        
+        return segment(data, index=self.batch, reduce=reduce, dim=0)
+        #return segment(data, indptr=self.ptr, reduce=reduce)
 
     # aliases
     reduce = segment
